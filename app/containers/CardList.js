@@ -1,50 +1,86 @@
-import React, { Component } from 'react';
-import { View, ScrollView, Text, TextInput } from 'react-native';
-import Card from './Card';
-// import axios from 'axios';
-import { AppConfig } from '../constants/AppConfig';
+import React, { Component } from "react";
+import { View, ScrollView, Text, TextInput } from "react-native";
+import Card from "./Card";
+import axios from "axios";
+import { AppConfig } from "../constants/AppConfig";
 
 export default class CardList extends Component {
-    static DEFAULT_SEARCH_PLACEHOLDER = "Search your favourite food!"
+  static DEFAULT_SEARCH_PLACEHOLDER = "Search your favourite food!";
 
-    constructor(props) {
-        console.log(props);
-        super(props);
-        this.state = {
-            search: CardList.DEFAULT_SEARCH_PLACEHOLDER,
-            data: []
-        }
+  constructor(props) {
+    console.log(props);
+    super(props);
+    this.state = {
+      search: CardList.DEFAULT_SEARCH_PLACEHOLDER,
+      data: []
+    };
+  }
+
+  componentDidMount() {
+    axios
+      .get("https://www.food2fork.com/api/search?key=" + AppConfig.API_KEY)
+      .then(res => {
+        console.log(res.data.recipes);
+        this.setState({ data: res.data.recipes });
+      })
+      .catch(err => {
+        alert("Something went wrong! Please try again later!");
+      });
+  }
+
+  onSearchFocus = () => {
+    this.setState({ search: "" });
+  };
+
+  onSearchBlur = () => {
+    if (this.state.search === "") {
+      this.resetSearchInput();
+    }
+  };
+
+  onSearchIntput(val) {
+    this.setState({ search: val });
+  }
+
+  resetSearchInput = () => {
+    this.setState({ search: CardList.DEFAULT_SEARCH_PLACEHOLDER });
+  };
+
+  renderRecipes = () => {
+    let array = [];
+    // return(
+    for (var i = 1; i <= 30; i++) {
+      array.push(<Card key={i} title={"Food " + i} theme={this.props.theme} />);
     }
 
-    componentWillMount() {
-        // axios.get("https://www.food2fork.com/api/search?key=" + AppConfig.API_KEY)
-        // .then(res => {
-        //     console.log(res);
-        // });
-    }
+    return array;
 
-    onSearchFocus = () => {
-        this.setState({search: ""})
-    }
+    // );
+    // );
+    // return this.state.data.map(d => {
+    //   return <Card key={d.title} title={d.title} theme={this.props.theme} />;
+    // });
+  };
 
-    onSearchBlur = () => {
-        if (this.state.search === "") {
-            this.setState({search: CardList.DEFAULT_SEARCH_PLACEHOLDER})
-        }
-    }
-
-    render() {
-        const { inputText, cardContainer } = this.props.theme;
-        console.log(cardContainer);
-        return (
-            <View>
-                <View>
-                    <TextInput style={inputText} value={this.state.search} onFocus={this.onSearchFocus} onBlur={this.onSearchBlur}></TextInput>
-                </View>
-                <ScrollView style={cardContainer}>
-                    <Card theme={this.props.theme} />
-                </ScrollView>
-            </View>
-        );
-    }
+  render() {
+    const {
+      inputText,
+      searchAndCardContainer,
+      cardContainer
+    } = this.props.theme;
+    return (
+      <View style={searchAndCardContainer}>
+        <View>
+          <TextInput
+            style={inputText}
+            value={this.state.search}
+            onFocus={this.onSearchFocus}
+            onBlur={this.onSearchBlur}
+            onChangeText={val => this.onSearchIntput(val)}
+          />
+        </View>
+        <ScrollView style={cardContainer}>{this.renderRecipes()}</ScrollView>
+      </View>
+    );
+  }
 }

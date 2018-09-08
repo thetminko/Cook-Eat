@@ -1,3 +1,7 @@
+// const AppConfig = {
+//   API_KEY: "8c68623981146bf24460204dff5868e7"
+// };
+
 export const AppConfig = {
-    API_KEY = "8c68623981146bf24460204dff5868e7"
-}
+  API_KEY: "8c68623981146bf24460204dff5868e7"
+};
