@@ -21,6 +21,9 @@ export const Font = {
   subHeader: {
     fontSize: 11,
     color: Color.dimGray
+  },
+  p: {
+    fontSize: 12
   }
 };
 

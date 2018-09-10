@@ -29,12 +29,21 @@ const baseTheme = {
   },
   card: {
     marginBottom: 10,
+    borderWidth: Border.width,
+    flex: 1,
+    flexDirection: "row"
+  },
+  cardImageContainer: {},
+  cardDescriptionContainer: {
     padding: 10,
-    height: 50,
-    borderWidth: Border.width
+    flex: 1
   },
   cardTitle: {
     ...Font.h2
+  },
+  cardDescription: {
+    ...Font.p,
+    paddingTop: 10
   },
   inputText: {
     marginLeft: 10,
@@ -73,8 +82,17 @@ export const lightTheme = {
     ...baseTheme.card,
     borderColor: Color.lightGray
   },
+  cardImageContainer: {
+    ...baseTheme.cardImageContainer
+  },
+  cardDescriptionContainer: {
+    ...baseTheme.cardDescriptionContainer
+  },
   cardTitle: {
     ...baseTheme.cardTitle
+  },
+  cardDescription: {
+    ...baseTheme.cardDescription
   },
   inputText: {
     ...baseTheme.inputText,
@@ -115,8 +133,18 @@ export const darkTheme = {
     ...baseTheme.card,
     borderColor: Color.lightGray
   },
+  cardImageContainer: {
+    ...baseTheme.cardImageContainer
+  },
+  cardDescriptionContainer: {
+    ...baseTheme.cardDescriptionContainer
+  },
   cardTitle: {
     ...baseTheme.cardTitle,
+    color: Color.lightGray
+  },
+  cardDescription: {
+    ...baseTheme.cardDescription,
     color: Color.lightGray
   },
   inputText: {

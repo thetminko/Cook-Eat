@@ -17,15 +17,15 @@ export default class CardList extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get("https://www.food2fork.com/api/search?key=" + AppConfig.API_KEY)
-      .then(res => {
-        console.log(res.data.recipes);
-        this.setState({ data: res.data.recipes });
-      })
-      .catch(err => {
-        alert("Something went wrong! Please try again later!");
-      });
+    // axios
+    //   .get("https://www.food2fork.com/api/search?key=" + AppConfig.API_KEY)
+    //   .then(res => {
+    //     console.log(res.data.recipes);
+    //     this.setState({ data: res.data.recipes });
+    //   })
+    //   .catch(err => {
+    //     alert("Something went wrong! Please try again later!");
+    //   });
   }
 
   onSearchFocus = () => {
@@ -50,15 +50,29 @@ export default class CardList extends Component {
     let array = [];
     // return(
     for (var i = 1; i <= 30; i++) {
-      array.push(<Card key={i} title={"Food " + i} theme={this.props.theme} />);
+      array.push(
+        <Card
+          key={i}
+          title={"This is a very long title " + i}
+          image={"https://via.placeholder.com/150"}
+          description={"Food description " + i}
+          theme={this.props.theme}
+        />
+      );
     }
 
     return array;
 
-    // );
-    // );
     // return this.state.data.map(d => {
-    //   return <Card key={d.title} title={d.title} theme={this.props.theme} />;
+    //   return (
+    //     <Card
+    //       key={d.title}
+    //       title={d.title}
+    //       image={d.image_url}
+    //       description={d.source_url}
+    //       theme={this.props.theme}
+    //     />
+    //   );
     // });
   };
 
